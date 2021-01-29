@@ -1,17 +1,15 @@
-from __future__ import annotations
-import numpy as np
+import cupy as cp
+
+rng = cp.random
 
 
-rng = np.random.default_rng()
+def degrees_to_radians(degrees):
+    return degrees * cp.pi / 180
 
 
-def degrees_to_radians(degrees: float) -> float:
-    return degrees * np.pi / 180
-
-
-def random_float(_min: float = 0, _max: float = 1) -> float:
+def random_float(_min = 0, _max = 1):
     return rng.uniform(_min, _max)
 
 
-def random_float_list(size: int, _min: float = 0, _max: float = 1) -> np.ndarray:
-    return rng.uniform(_min, _max, size)
+def random_float_list(size: int, _min = 0, _max = 1):
+    return rng.uniform(_min, _max, size).astype(cp.float32, copy=False)
